@@ -1,14 +1,16 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
+import jwt_decode from 'jwt-decode';
 
 import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
 
 const Login = () => {
    const responseGoogle = (response) => {
-      console.log(response);
+      let userObject = jwt_decode(response.credential);
+      localStorage.setItem('user', JSON.stringify(userObject));
+      const { name, email, picture } = userObject;
    }
 
    return (
@@ -29,14 +31,16 @@ const Login = () => {
                </div>
                <div className="shadow-2xl">
                   <GoogleLogin
-                     render={(renderProps) => (
-                        <button type="button" className="bg-maincolor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                           <FcGoogle />
-                        </button>
-                     )}
-                     onSuccess={credentialResponse => {
-                        console.log(credentialResponse);
-                     }}
+                     // render={(renderProps) => (
+                     //    <button type="button" className="bg-maincolor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                     //       <FcGoogle />
+                     //    </button>
+                     // )}
+                     type="standard"
+                     theme="filled_black"
+                     size="large"
+                     shape="pill"
+                     onSuccess={responseGoogle}
                      onError={() => {
                         console.log('Login Failed');
                      }}
