@@ -5,12 +5,28 @@ import jwt_decode from 'jwt-decode';
 
 import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
+import { client } from '../client';
 
 const Login = () => {
+   const navigate = useNavigate();
+
    const responseGoogle = (response) => {
       let userObject = jwt_decode(response.credential);
+      console.log(userObject);
       localStorage.setItem('user', JSON.stringify(userObject));
-      const { name, email, picture } = userObject;
+      const { name, sub, picture } = userObject;
+      
+      const doc = {
+         _id: sub,
+         _type: 'user',
+         userName: name,
+         image: picture
+      }
+
+      client.createIfNotExists(doc)
+         .then(() => {
+            navigate('/', { replace: true });
+         })
    }
 
    return (
@@ -31,11 +47,6 @@ const Login = () => {
                </div>
                <div className="shadow-2xl">
                   <GoogleLogin
-                     // render={(renderProps) => (
-                     //    <button type="button" className="bg-maincolor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                     //       <FcGoogle />
-                     //    </button>
-                     // )}
                      type="standard"
                      theme="filled_black"
                      size="large"
