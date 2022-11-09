@@ -24,7 +24,7 @@ const SideBar = ({ user, closeToggle }) => {
    return (
       <div className='flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar'>
          <div className="flex flex-col">
-            <Link to="/" className="flex px-5 gap-2 my-6 pt-1 w-190 items-center" onClick={handleCloseSidebar}>
+            <Link to="/" className="flex px-3 gap-2 my-6 pt-1 w-190 items-center mx-auto" onClick={handleCloseSidebar}>
                <img src={logo} alt="thatlife logo" className="w-full" />
             </Link>
             <div className="flex flex-col gap-5">
@@ -39,8 +39,14 @@ const SideBar = ({ user, closeToggle }) => {
                ))}
             </div>
          </div>
+         {user && (
+            <Link to={`user-profile/${user._id}`} className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3" onClick={handleCloseSidebar}>
+               <img src={user.image} alt="user avatar" className="w-10 h-10 rounded-full" />
+               <p>{user.userName}</p>
+            </Link>
+         )}
       </div>
    )
 }
 
-export default SideBar
+export default SideBar;
