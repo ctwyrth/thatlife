@@ -3,7 +3,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
-import shareVideo from '../assets/share.mp4';
+import shareVideo from '../assets/video.mp4';
 import logo from '../assets/logowhite.png';
 import { client } from '../client';
 
