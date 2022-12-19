@@ -56,24 +56,24 @@ export const feedQuery = `*[_type == 'pin'] | order(_createdAt desc) {
 
 export const categories = [
    {
-      name: 'cars',
-      image: 'https://i.pinimg.com/750x/eb/47/44/eb4744eaa3b3ccd89749fa3470e2b0de.jpg',
+      name: 'comics',
+      image: 'https://m.media-amazon.com/images/I/A1bJOvEboML.jpg',
    },
    {
-      name: 'fitness',
-      image: 'https://i.pinimg.com/236x/25/14/29/251429345940a47490cc3d47dfe0a8eb.jpg',
+      name: 'cosplay',
+      image: 'https://pbs.twimg.com/media/FjDvIAHaMAA2jo3?format=jpg&name=large',
    },
    {
-      name: 'wallpaper',
-      image: 'https://i.pinimg.com/236x/03/48/b6/0348b65919fcbe1e4f559dc4feb0ee13.jpg',
+      name: 'gaming',
+      image: 'https://www.etonline.com/sites/default/files/styles/max_970x546/public/images/2022-11/GettyImages-1345967858.jpg?h=119335f7&itok=ZJ59Rj1A',
    },
    {
-      name: 'websites',
-      image: 'https://i.pinimg.com/750x/66/b1/29/66b1296d36598122e6a4c5452b5a7149.jpg',
-   },
-   {
-      name: 'photo',
+      name: 'photography',
       image: 'https://i.pinimg.com/236x/72/8c/b4/728cb43f48ca762a75da645c121e5c57.jpg',
+   },
+   {
+      name: 'programming',
+      image: 'https://www.codingem.com/wp-content/uploads/2021/10/juanjo-jaramillo-mZnx9429i94-unsplash-scaled.jpg',
    },
    {
       name: 'food',
