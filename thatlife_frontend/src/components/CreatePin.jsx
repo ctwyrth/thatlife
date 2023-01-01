@@ -22,7 +22,7 @@ const CreatePin = ({ user }) => {
    const uploadImage = (e) => {
       const { type, name } = e.target.files[0];
 
-      if (type === 'image/png' || type === 'image/svg' || type === 'image/jpg' || type === 'image/jpeg' || type === 'image/gif') {
+      if (['image/png', 'image/svg', 'image/jpg', 'image/jpeg', 'image/gif'].includes(type)) {
          setWrongImageType(false);
          setLoading(true);
 
@@ -122,8 +122,8 @@ const CreatePin = ({ user }) => {
                      <p className="mb-2 font-semibold text-lg sm:text-xl">Choose pin category:</p>
                      <select name="category" id="category" className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer" onChange={(e) => setCategory(e.target.value)}>
                         <option value="other" className="bg-white">Select category...</option>
-                        {categories.map((category) => (
-                           <option value={category.name} className="text-base border-0 outline-none capitalize bg-white text-black">{category.name}</option>
+                        {categories.map((category, idx) => (
+                           <option value={category.name} className="text-base border-0 outline-none capitalize bg-white text-black" key={idx}>{category.name}</option>
                         ))}
                      </select>
                   </div>
