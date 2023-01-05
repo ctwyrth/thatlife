@@ -15,6 +15,30 @@ const PinDetail = ({ user }) => {
    const [addingComment, setAddingComment] = useState(false);
    const { pinId } = useParams();
 
+   const addComment = () => {
+      if (comment) {
+         setAddingComment(true);
+
+         client
+            .patch(pinId)
+            .setIfMissing({ comments: [] })
+            .insert('after', 'comments[-1]', [{
+               comment,
+               _key: uuidv4(),
+               postedBy: {
+                  _type: 'postedBy',
+                  _ref: user._id
+               }
+            }])
+            .commit()
+            .then(() => {
+               fetchPinDetails();
+               setComment('');
+               setAddingComment(false);
+            });
+      }
+   }
+   
    const fetchPinDetails = () => {
       let query = pinDetailQuery(pinId);
 
@@ -57,10 +81,11 @@ const PinDetail = ({ user }) => {
                <h1 className="text-4xl font-bold break-words mt-3">{pinDetails.title}</h1>
                <p className="mt-2 ml-2">{pinDetails.about}</p>
             </div>
-            <Link to={`user-profile/${pinDetails.postedBy?._id}`} className="flex gap-2 mt-7 items-center bg-white rounded-lg">
+            <Link to={`user-profile/${pinDetails.postedBy?._id}`} className="flex gap-2 my-6 items-center bg-white rounded-lg">
                <img src={pinDetails.postedBy?.image} alt="user avatar" className="w-8 h-8 rounded-full object-cover" referrerPolicy="no-referrer"/>
                <p className="font-semibold capitalize">{pinDetails.postedBy?.userName}</p>
             </Link>
+            <hr style={{ width: '90%', margin: '0 auto' }} />
             <h2 className="mt-5 text-2xl">Comments:</h2>
             <div className="max-h-370 overflow-y-auto">
                {pinDetails?.comments?.map((comment, i) => (
@@ -72,6 +97,15 @@ const PinDetail = ({ user }) => {
                      </div>
                   </div>
                ))}
+            </div>
+            <div className="flex flex-wrap items-center mt-6 gap-3">
+               <Link to={`user-profile/${pinDetails.postedBy?._id}`}>
+                  <img src={pinDetails.postedBy?.image} alt="user avatar" className="w-10 h-10 rounded-full cursor-pointer" referrerPolicy="no-referrer"/>
+               </Link>
+               <input type="text" className="flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300" placeholder="Add a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />
+               <button type="button" className="bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none" onClick={addComment}>
+                  {addingComment ? 'Posting...' : 'Posted!'}
+               </button>
             </div>
          </div>
       </div>
