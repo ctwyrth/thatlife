@@ -67,7 +67,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save} }) => {
                   <div className="flex justify-between items-center gap-2 w-full">
                      {destination && (
                         <a href={destination} target="_blank" rel="noreferrer" className="bg-white flex items-center gap-2 text-black font-bold px-2 py-1 rounded-full opacity-70 hover:opacity-100 hover:shadow-md">
-                           <BsFillArrowUpRightCircleFill /><span style={{fontSize: '.75rem'}}>{destination.length > 24 ? destination.slice(8, 20) : destination.slice(8)}</span>
+                           <BsFillArrowUpRightCircleFill /><span style={{fontSize: '.75rem'}}>{destination.length > 15 ? `${destination.slice(0,15)}...` : destination}</span>
                         </a>
                      )}
                      {postedBy?._id === user.sub && (
