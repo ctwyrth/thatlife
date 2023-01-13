@@ -89,7 +89,7 @@ const PinDetail = ({ user }) => {
                   <p className="mt-2 ml-2">{pinDetails.about}</p>
                </div>
          {/* posted by */}
-               <Link to={`user-profile/${pinDetails.postedBy?._id}`} className="flex gap-2 my-6 items-center bg-white rounded-lg">
+               <Link to={`/user-profile/${pinDetails.postedBy?._id}`} className="flex gap-2 my-6 items-center bg-white rounded-lg">
                   <img src={pinDetails.postedBy?.image} alt="user avatar" className="w-8 h-8 rounded-full object-cover" referrerPolicy="no-referrer"/>
                   <p className="font-semibold capitalize">{pinDetails.postedBy?.userName}</p>
                </Link>
@@ -114,7 +114,7 @@ const PinDetail = ({ user }) => {
 
          {/* add a comment from current user */}
                <div className="flex flex-wrap items-center mt-6 gap-3">
-                  <Link to={`user-profile/${user?._id}`}>
+                  <Link to={`/user-profile/${user?._id}`}>
                      <img src={user?.image} alt="user avatar" className="w-10 h-10 rounded-full cursor-pointer" referrerPolicy="no-referrer"/>
                   </Link>
                   <input type="text" className="flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300" placeholder="Add a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />

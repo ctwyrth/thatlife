@@ -32,6 +32,24 @@ const UserProfile = () => {
          })
    }, [userId]);
 
+   useEffect(() => {
+      if (text === 'Created') {
+         const createdPinsQuery = userCreatedPinsQuery(userId);
+
+         client.fetch(createdPinsQuery)
+            .then((data) => {
+               setPins(data);
+            })
+      } else if (text === 'Saved') {
+         const savedPinsQuery = userSavedPinsQuery(userId);
+
+         client.fetch(savedPinsQuery)
+            .then((data) => {
+               setPins(data);
+            })
+         }
+   }, [text, userId])
+
    const logout = () => {
       googleLogout();
       localStorage.clear();
@@ -69,6 +87,15 @@ const UserProfile = () => {
                      setActiveBtn('saved');
                   }} className={`${activeBtn === 'saved' ? activeBtnStyles : notActiveBtnStyles}`}>Saved</button>
                </div>
+               {pins?.length ? (
+                  <div className="px-3">
+                     <MasonryLayout pins={pins} />
+                  </div>
+               ) : (
+                  <div className="flex justify-center font-bold items-center w-full text-xl mt-2">
+                     No pins found!
+                  </div>
+               )}
             </div>
          </div>
       </div>

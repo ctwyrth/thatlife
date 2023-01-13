@@ -7,14 +7,7 @@ import logo from '../assets/logo.png';
 
 const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize';
 const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize';
-const categories = [
-   { name: 'Comics' },
-   { name: 'Cosplay' },
-   { name: 'Gaming' },
-   { name: 'Photography' },
-   { name: 'Programming' },
-   { name: 'Other' }
-];
+import { categories } from '../utils/data';
 
 const SideBar = ({ user, closeToggle }) => {
    const handleCloseSidebar = () => {
@@ -33,7 +26,8 @@ const SideBar = ({ user, closeToggle }) => {
                </NavLink>
                <h3 className="mt-2 px-5 text-base 2xl:text-xl">Discover Categories:</h3>
                {categories.slice(0, categories.length - 1).map((category) => (
-                  <NavLink to={`/category/${category.name}`} className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle} onClick={handleCloseSidebar} key={category.name}>
+                  <NavLink to={`category/${category.name}`} className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle} onClick={handleCloseSidebar} key={category.name}>
+                     <img src={category.image} alt="category image" className="w-8 h-8 rounded shadow-sm" />
                      {category.name}
                   </NavLink>
                ))}
