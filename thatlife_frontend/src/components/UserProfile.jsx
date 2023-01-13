@@ -11,6 +11,8 @@ import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/da
 import { client } from '../client';
 
 const randomImage = 'https://source.unsplash.com/random/1600x900/?nature,photography,technology';
+const activeBtnStyles = 'bg-red-500 text-white font-bold p-2 rounded-full w-20 outline-none';
+const notActiveBtnStyles = 'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
 
 const UserProfile = () => {
    const [user, setUser] = useState(null);
@@ -30,6 +32,13 @@ const UserProfile = () => {
          })
    }, [userId]);
 
+   const logout = () => {
+      googleLogout();
+      localStorage.clear();
+
+      navigate('/login');
+   }
+
    if (!user) {
       return <Spinner message="Loading user's profile..." />
    }
@@ -44,12 +53,21 @@ const UserProfile = () => {
                   <h1 className="font-bold text-3xl text-center mt-3">{user.userName}</h1>
                   <div className="absolute top-0 z-1 right-0 p-2">
                      {userId == user._id && (
-                        <button type="button" className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md">
+                        <button type="button" className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md" onClick={logout}>
                            <AiOutlineLogout color="red" fontSize={21} />
                         </button>
-
                      )}
                   </div>
+               </div>
+               <div className="text-center mb-7">
+                  <button type="button" onClick={(e) => {
+                     setText(e.target.textContent);
+                     setActiveBtn('created');
+                  }} className={`${activeBtn === 'created' ? activeBtnStyles : notActiveBtnStyles}`}>Created</button>
+                  <button type="button" onClick={(e) => {
+                     setText(e.target.textContent);
+                     setActiveBtn('saved');
+                  }} className={`${activeBtn === 'saved' ? activeBtnStyles : notActiveBtnStyles}`}>Saved</button>
                </div>
             </div>
          </div>
