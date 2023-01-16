@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 import { Sidebar, UserProfile } from '../components';
 import { client } from '../client';
@@ -14,6 +14,7 @@ const Home = () => {
    const [toggleSidebar, setToggleSidebar] = useState(false);
    const [user, setUser] = useState(null);
    const scrollRef = useRef(null);
+   const navigate = useNavigate();
 
    const userInfo = fetchUser();
 
@@ -22,7 +23,12 @@ const Home = () => {
 
       client.fetch(query)
          .then((data) => {
-            setUser(data[0]);
+            console.log(data);
+            if (data?.length !== 0) {
+               setUser(data[0]);
+            } else {
+               navigate('/login');
+            }
          })
    }, [])
 
