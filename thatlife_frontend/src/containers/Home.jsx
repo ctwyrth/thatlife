@@ -23,12 +23,7 @@ const Home = () => {
 
       client.fetch(query)
          .then((data) => {
-            console.log(data);
-            if (data?.length !== 0) {
-               setUser(data[0]);
-            } else {
-               navigate('/login');
-            }
+            setUser(data[0]);
          })
    }, [])
 
