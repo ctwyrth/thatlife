@@ -1,3 +1,4 @@
+// Pin detail view with comments; guests can view, sign-in required to post.
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,6 +17,7 @@ const PinDetail = ({ user }) => {
    const { pinId } = useParams();
 
    const addComment = () => {
+      if (!user) return;
       if (comment) {
          setAddingComment(true);
 
@@ -112,16 +114,24 @@ const PinDetail = ({ user }) => {
 
                <hr style={{ width: '95%', margin: '0 auto' }} />
 
-         {/* add a comment from current user */}
-               <div className="flex flex-wrap items-center mt-6 gap-3">
-                  <Link to={`/user-profile/${user?._id}`}>
-                     <img src={user?.image} alt="user avatar" className="w-10 h-10 rounded-full cursor-pointer" referrerPolicy="no-referrer"/>
-                  </Link>
-                  <input type="text" className="flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300" placeholder="Add a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />
-                  <button type="button" className="bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none" onClick={addComment}>
-                     {addingComment ? 'Posting...' : 'Post'}
-                  </button>
-               </div>
+         {/* add a comment from current user, or prompt guests to sign in */}
+               {user ? (
+                  <div className="flex flex-wrap items-center mt-6 gap-3">
+                     <Link to={`/user-profile/${user?._id}`}>
+                        <img src={user?.image} alt="user avatar" className="w-10 h-10 rounded-full cursor-pointer" referrerPolicy="no-referrer"/>
+                     </Link>
+                     <input type="text" className="flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300" placeholder="Add a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />
+                     <button type="button" className="bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none" onClick={addComment}>
+                        {addingComment ? 'Posting...' : 'Post'}
+                     </button>
+                  </div>
+               ) : (
+                  <div className="flex items-center mt-6 gap-3">
+                     <Link to="/login" className="bg-black text-white rounded-full px-6 py-2 font-semibold text-base outline-none">
+                        Sign in to comment
+                     </Link>
+                  </div>
+               )}
             </div>
          </div>
 

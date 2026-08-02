@@ -12,11 +12,22 @@ dist
 dist-ssr
 *.local
 
+# Secrets
+.env
+.env.*
+!.env.example
+**/.env
+!**/.env.example
+
+# macOS resource forks / Finder metadata
+.DS_Store
+._*
+**/._*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj

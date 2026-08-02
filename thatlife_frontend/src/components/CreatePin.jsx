@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate, useSubmit } from 'react-router-dom';
+// Create pin form; redirects guests to Google login.
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 
@@ -18,6 +19,12 @@ const CreatePin = ({ user }) => {
    const [wrongImageType, setWrongImageType] = useState(false);
 
    const navigate = useNavigate();
+
+   useEffect(() => {
+      if (!user) navigate('/login', { replace: true });
+   }, [user, navigate]);
+
+   if (!user) return <Spinner message="Redirecting to sign in..." />;
 
    const uploadImage = (e) => {
       const { type, name } = e.target.files[0];

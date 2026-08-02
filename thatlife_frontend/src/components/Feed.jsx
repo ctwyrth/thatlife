@@ -1,3 +1,4 @@
+// Masonry feed of Sanity pins by category or home query.
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -14,21 +15,20 @@ const Feed = () => {
    useEffect(() => {
       setLoading(true);
 
-      if (categoryId) {
-         const query = searchQuery(categoryId);
+      const request = categoryId
+         ? client.fetch(searchQuery(categoryId))
+         : client.fetch(feedQuery);
 
-         client.fetch(query)
-            .then((data) => {
-               setPins(data);
-               setLoading(false);
-            })
-      } else {
-         client.fetch(feedQuery)
-            .then((data) => {
-               setPins(data);
-               setLoading(false);
-            })
-      }
+      request
+         .then((data) => {
+            setPins(data);
+            setLoading(false);
+         })
+         .catch((error) => {
+            console.error('Feed fetch failed', error);
+            setPins([]);
+            setLoading(false);
+         });
    }, [categoryId])
 
    if (loading) return <Spinner message="We're working to bring you new content." />;

@@ -1,3 +1,4 @@
+// Category sidebar with profile or Sign in for guests.
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
@@ -33,10 +34,14 @@ const SideBar = ({ user, closeToggle }) => {
                ))}
             </div>
          </div>
-         {user && (
+         {user ? (
             <Link to={`user-profile/${user._id}`} className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3" onClick={handleCloseSidebar}>
                <img src={user.image} alt="user avatar" className="w-10 h-10 rounded-lg" referrerPolicy="no-referrer" />
                <p>{user.userName}</p>
+            </Link>
+         ) : (
+            <Link to="/login" className="flex my-5 mb-3 mx-3 px-4 py-2 items-center justify-center bg-black text-white rounded-lg shadow-lg font-semibold" onClick={handleCloseSidebar}>
+               Sign in
             </Link>
          )}
       </div>

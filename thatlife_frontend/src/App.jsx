@@ -1,30 +1,17 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+// App routes: public browse with optional Google login for interactions.
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
 import Login from './components/Login';
 import Home from './containers/Home';
 
 const App = () => {
-   
    return (
       <Routes>
          <Route path="login" element={<Login />} />
-         <Route path="/*" element={<CheckUser />} />
+         <Route path="/*" element={<Home />} />
       </Routes>
    )
-}
-
-function CheckUser() {
-   const navigate = useNavigate();
-
-   console.log(localStorage.getItem('user') === null);
-
-   if (localStorage.getItem('user') === null) {
-      useEffect(() => {
-         navigate('login');
-      }, [])
-   }
-   return <Home />;
 }
 
 export default App;

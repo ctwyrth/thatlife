@@ -1,5 +1,6 @@
+// Masonry pin card with save/delete; guests are sent to login for writes.
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { MdDownloadForOffline } from 'react-icons/md';
 import { AiTwotoneDelete } from 'react-icons/ai';
@@ -14,8 +15,13 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save} }) => {
    const navigate = useNavigate();
    
    const user = fetchUser();
-   const alreadySaved = !!(save?.filter((item) => item.postedBy._id === user.sub))?.length; // bang-bang to set boolean from value
+   // Guest browse is allowed; save/delete require a logged-in Google user.
+   const alreadySaved = !!(user && save?.filter((item) => item.postedBy._id === user.sub))?.length;
    const savePin = (id) => {
+      if (!user) {
+         navigate('/login');
+         return;
+      }
       if (!alreadySaved) {
          client
             .patch(id)
@@ -70,7 +76,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save} }) => {
                            <BsFillArrowUpRightCircleFill /><span style={{fontSize: '.75rem'}}>{destination.length > 15 ? `${destination.slice(0,15)}...` : destination}</span>
                         </a>
                      )}
-                     {postedBy?._id === user.sub && (
+                     {user && postedBy?._id === user.sub && (
                         <button type="button" className="bg-white flex items-center opacity-75 hover:opacity-100 text-dark font-4bold p-2 text-base rounded-3xl hover:shadow-md outline-none" onClick={(e) => {
                            e.stopPropagation();
                            deletePin(_id);
