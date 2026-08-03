@@ -1,31 +1,25 @@
 {
-  "name": "ivory-yak",
+  "name": "thatlife-backend",
   "private": true,
-  "version": "1.0.0",
-  "description": "",
-  "main": "package.json",
+  "version": "3.0.0",
+  "description": "thatLife Sanity Studio v3 — content schemas for pins, users, saves, and comments",
   "author": "Thomas W. <mmxvi.ctw@gmail.com>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "sanity start",
-    "build": "sanity build"
+    "dev": "sanity dev",
+    "start": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
   },
-  "keywords": [
-    "sanity"
-  ],
+  "keywords": ["sanity", "thatlife"],
   "dependencies": {
-    "@sanity/base": "^2.35.4",
-    "@sanity/core": "^2.35.3",
-    "@sanity/default-layout": "^2.35.4",
-    "@sanity/default-login": "^2.35.4",
-    "@sanity/desk-tool": "^2.35.4",
-    "@sanity/eslint-config-studio": "^2.0.1",
-    "@sanity/vision": "^2.35.4",
-    "eslint": "^8.6.0",
-    "prop-types": "^15.7",
-    "react": "^17.0",
-    "react-dom": "^17.0",
-    "styled-components": "^5.2.0"
+    "@sanity/vision": "^3.99.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sanity": "^3.99.0",
+    "styled-components": "^6.1.19"
   },
-  "devDependencies": {}
+  "engines": {
+    "node": ">=18"
+  }
 }

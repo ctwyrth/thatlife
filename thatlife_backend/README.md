@@ -1,9 +1,28 @@
-# Sanity Clean Content Studio
+# thatLife Sanity Studio (v3)
 
-Congratulations, you have now installed the Sanity Content Studio, an open source real-time content editing environment connected to the Sanity backend.
+Local CMS for the thatLife photo-blogging app. Connected to Sanity project `nnu4f987` / dataset `production`.
 
-Now you can do the following things:
+## Setup
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+```bash
+cd thatlife_backend
+npm install
+npm run dev
+```
+
+Studio opens at the URL printed in the terminal (usually `http://localhost:3333`).
+
+## Scripts
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Run Studio locally |
+| `npm run build` | Production Studio build |
+| `npm run deploy` | Deploy hosted Studio (requires Sanity login) |
+
+## Schemas
+
+- `user` — display name + avatar URL
+- `pin` — image post, category, optional destination, saves, comments
+- `comment` / `save` — object types embedded on pins
+- `postedBy` — reference to `user`

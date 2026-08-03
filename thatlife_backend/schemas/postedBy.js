@@ -1,6 +1,9 @@
-export default {
+// PostedBy — reference from pins/comments/saves back to a user document.
+import {defineType} from 'sanity'
+
+export default defineType({
    name: 'postedBy',
-   title: 'PostedBy',
+   title: 'Posted By',
    type: 'reference',
-   to: [{ type: 'user' }]
-}
+   to: [{type: 'user'}],
+})

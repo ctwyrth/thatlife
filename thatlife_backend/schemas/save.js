@@ -1,17 +1,20 @@
-export default {
+// Save object — embedded “like/save” entry on a pin.
+import {defineType, defineField} from 'sanity'
+
+export default defineType({
    name: 'save',
    title: 'Save',
-   type: 'document',
+   type: 'object',
    fields: [
-      {
+      defineField({
          name: 'postedBy',
-         title: 'PostedBy',
+         title: 'Posted By',
          type: 'postedBy',
-      },
-      {
+      }),
+      defineField({
          name: 'userId',
-         title: 'UserID',
+         title: 'User ID',
          type: 'string',
-      },
-   ]
-}
+      }),
+   ],
+})

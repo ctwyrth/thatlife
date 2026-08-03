@@ -1,3 +1,4 @@
+// Google login screen; syncs user to Sanity then enters the app.
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -10,23 +11,36 @@ import { client } from '../client';
 const Login = () => {
    const navigate = useNavigate();
 
+   // Handle GIS credential: store session locally, upsert Sanity user, then route home.
    const responseGoogle = (response) => {
-      let userObject = jwt_decode(response.credential);
+      let userObject;
+
+      try {
+         userObject = jwt_decode(response.credential);
+      } catch (error) {
+         console.error('Failed to decode Google credential', error);
+         return;
+      }
 
       localStorage.setItem('user', JSON.stringify(userObject));
       const { name, sub, picture } = userObject;
-      
+
       const doc = {
          _id: sub,
          _type: 'user',
          userName: name,
          image: picture,
-      }
+      };
 
-      client.createIfNotExists(doc)
-         .then(() => {
-            navigate('/', { replace: true });
+      client
+         .createIfNotExists(doc)
+         .catch((error) => {
+            // Still enter the app if Sanity sync fails; session is already local.
+            console.error('Sanity user sync failed after Google login', error);
          })
+         .finally(() => {
+            navigate('/', { replace: true });
+         });
    }
 
    return (

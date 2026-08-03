@@ -24,8 +24,8 @@ Photo-blogging social app — browse a masonry feed, search categories, save pin
 | --- | --- |
 | Frontend | React 18, Vite, Tailwind CSS, React Router |
 | Auth | Google Identity Services (`@react-oauth/google`) |
-| Backend / CMS | Sanity Studio v2 + Sanity Content Lake |
-| Hosting | Vercel (SPA + `/api/query` proxy) |
+| Backend / CMS | Sanity Studio v3 + Sanity Content Lake |
+| Hosting | Vercel (SPA + `/api/query` + `/api/mutate` proxies) |
 
 ## What I changed vs the tutorial
 
@@ -33,7 +33,8 @@ This started from a JavaScript Mastery ShareMe-style Sanity tutorial. Notable di
 
 - Google Identity Services login (newer GIS flow) instead of the older Google button package
 - Route/auth adjustments so visitors can browse without signing in
-- Production Sanity reads go through a same-origin Vercel API proxy to avoid CORS friction
+- Production Sanity reads/writes go through same-origin Vercel API proxies to avoid CORS friction
+- Sanity Studio migrated from v2 → v3 (`sanity.config.js`, `defineType` schemas)
 - Portfolio hygiene: `.env` removed from git, `.env.example` added
 
 Learning / prototype scope — not a production multi-tenant product.
@@ -61,8 +62,10 @@ npm run dev
 ```bash
 cd thatlife_backend
 npm install
-npx sanity start
+npm run dev
 ```
+
+Studio opens at the URL printed in the terminal (usually `http://localhost:3333`).
 
 ### Environment variables
 
