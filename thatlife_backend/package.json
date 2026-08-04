@@ -1,7 +1,7 @@
 {
   "name": "thatlife-backend",
   "private": true,
-  "version": "3.0.0",
+  "version": "2.0.1",
   "description": "thatLife Sanity Studio v3 — content schemas for pins, users, saves, and comments",
   "author": "Thomas W. <mmxvi.ctw@gmail.com>",
   "license": "UNLICENSED",

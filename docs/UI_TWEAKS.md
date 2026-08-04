@@ -5,6 +5,17 @@ ATProto work stays out of scope here — fork after this list ships.
 
 Status key: `todo` | `in_progress` | `done`
 
+## Scope decisions (from UI modernization assessment)
+
+Locked for planning / implementation order:
+
+- **Grid attribution:** Remove always-visible poster name/avatar under masonry tiles; use a thin **title + tags** footer on the card instead. Full author row stays on pin detail / profile.
+- **Short-form video:** **Schema hooks only** in the 2.0.0 pass (`mediaType`, optional `video` / poster fields on `pin`). No create UI, feed playback, or asset-proxy work for video until **2.1.0** (see #11).
+- **Pin detail:** Desktop/tablet **modal** over the feed; mobile **full page**; keep a shareable `/pin-detail/:id` (or `/pin/:id`) route (#10).
+
+Ordered build path: [`docs/V2_IMPLEMENTATION.md`](V2_IMPLEMENTATION.md).  
+Hand-coding guide for Phase 0: [`docs/PHASE0_SCHEMA_HANDOFF.md`](PHASE0_SCHEMA_HANDOFF.md).
+
 ---
 
 ## 1. Editable profile settings — `todo`
@@ -84,7 +95,7 @@ Status key: `todo` | `in_progress` | `done`
 
 ---
 
-## 4. More categories + icon-based category list — `todo`
+## 4. More categories + icon-based category list — `done`
 
 **Problem:** Category list uses remote photos (fragile/broken thumbs) and is missing several intended topics.
 
@@ -96,15 +107,15 @@ Status key: `todo` | `in_progress` | `done`
 
 **Current code touchpoints:**
 
-- [`thatlife_frontend/src/utils/data.js`](../thatlife_frontend/src/utils/data.js) — `categories` array (`image` URLs)
-- [`SideBar.jsx`](../thatlife_frontend/src/components/SideBar.jsx) — renders `<img src={category.image} />`
+- [`thatlife_frontend/src/utils/data.js`](../thatlife_frontend/src/utils/data.js) — `categories` array (`icon` components)
+- [`SideBar.jsx`](../thatlife_frontend/src/components/SideBar.jsx) — renders category icon component
 - Create Pin category `<select>` (same `categories` source)
 
 **Acceptance:**
 
-- [ ] Movies, Books, Celebrities appear in sidebar and create-pin category list
-- [ ] Sidebar uses icons (not photo URLs) for every category
-- [ ] Existing category routes (`category/:name`) still work; new ones filter correctly
+- [x] Movies, Books, Celebrities appear in sidebar and create-pin category list
+- [x] Sidebar uses icons (not photo URLs) for every category
+- [x] Existing category routes (`category/:name`) still work; new ones filter correctly
 
 ---
 
@@ -201,6 +212,97 @@ Status key: `todo` | `in_progress` | `done`
 - [ ] Destination link only appears when a URL was provided
 - [ ] Per-post control hides/shows download affordances on feed + detail
 - [ ] Optional strip-metadata path runs before upload when selected (or explains why it can’t for that file type)
+
+---
+
+## 8. Pin card redesign (title/tags footer; no always-on username) — `todo`
+
+**Problem:** Masonry tiles always show a large poster avatar + name under the image ([`Pin.jsx`](../thatlife_frontend/src/components/Pin.jsx)). Resting state has no title/tags; the grid feels dated vs modern Pinterest.
+
+**Goal:** Resting card = image + thin footer (1-line **title** + **tag chips** from `tags` / category). No always-visible username. Hover/focus exposes Save and a compact overflow menu (download if allowed, destination, delete if owner). Full author row only on detail/profile.
+
+**Depends on:** #12 for tags on cards (category chip alone is OK as interim).
+
+**Acceptance:**
+
+- [ ] Grid tiles do not show poster name/avatar in the resting state
+- [ ] Title (and tags when present) appear in a compact footer
+- [ ] Save / download / link / delete remain available on hover or menu without cluttering the default view
+
+---
+
+## 9. Optimistic save (no full page reload) — `todo`
+
+**Problem:** Saving a pin calls `window.location.reload()` after Sanity commit ([`Pin.jsx`](../thatlife_frontend/src/components/Pin.jsx)).
+
+**Goal:** Update local pin `save` state (and button label/count) immediately on success; revert or toast on failure. No full reload.
+
+**Acceptance:**
+
+- [ ] Save toggles UI without reloading the page
+- [ ] Failed saves surface an error and restore prior state
+
+---
+
+## 10. Pin detail modal (desktop) + full page (mobile) — `todo`
+
+**Problem:** `/pin-detail/:pinId` replaces the feed with a full-page detail view, losing masonry context ([`Pins.jsx`](../thatlife_frontend/src/containers/Pins.jsx), [`PinDetail.jsx`](../thatlife_frontend/src/components/PinDetail.jsx)).
+
+**Goal:** Keep a shareable pin route. On **md+**, open detail as a modal/drawer over the dimmed feed; on **small screens**, keep full-page detail. Esc/backdrop closes and restores prior scroll when possible. Related pins stay in the detail panel scroll.
+
+**Acceptance:**
+
+- [ ] Deep link `/pin-detail/:id` still works on refresh
+- [ ] Desktop: modal over feed; mobile: full page
+- [ ] Close returns to feed without a hard navigation loss of context (best-effort scroll restore)
+
+---
+
+## 11. Short-form video — schema hooks in 2.0.0; full feature in 2.1.0 — `todo`
+
+**Problem:** Pins are image-only. Modern Pinterest-like apps support short video (“Idea Pin” style) in the same masonry.
+
+**Goal (2.0.0 — schema only):** Extend pin schema with `mediaType` (`image` | `video`), optional `video` file field, and poster/thumbnail. Do **not** change Create Pin, feed tiles, detail player, or `/api/asset` for video in this pass.
+
+**Goal (2.1.0):** Upload caps (duration/size), create UI for short video, muted autoplay/hover-play on tiles, detail playback, extend asset proxy for video bodies.
+
+**Acceptance (2.0.0 hooks):**
+
+- [ ] Schema includes `mediaType` + optional video/poster fields
+- [ ] Existing image pins remain valid (missing `mediaType` treated as image)
+- [ ] No video upload/playback UI shipped in 2.0.0
+
+**Acceptance (2.1.0):** tracked separately when that release starts.
+
+---
+
+## 12. Pin `tags[]` + show on cards/detail — `todo`
+
+**Problem:** Discovery is a single `category` string. Cards and detail have no multi-tag surface.
+
+**Goal:** Add `tags` (array of strings) on the pin schema; keep `category` as the primary sidebar topic. Create Pin can add tags; cards (#8) and detail show chips. Search can optionally match tags later.
+
+**Acceptance:**
+
+- [ ] Pins store zero or more tags
+- [ ] Tags appear on detail; appear on card footer when present
+- [ ] Category sidebar behavior unchanged
+
+---
+
+## 13. User `bio` on public profile — `todo`
+
+**Problem:** Public profile only shows name + avatar (+ pins). No short bio for a current Pinterest-like identity.
+
+**Goal:** Add optional `bio` on the user schema; editable on profile settings (#1); shown on public [`UserProfile`](../thatlife_frontend/src/components/UserProfile.jsx).
+
+**Depends on:** #1 for edit UI.
+
+**Acceptance:**
+
+- [ ] Bio field on user document
+- [ ] Visible on public profile when set
+- [ ] Editable from profile settings
 
 ---
 

@@ -27,12 +27,61 @@ export default defineType({
          type: 'string',
       }),
       defineField({
+         name: 'mediaType',
+         title: 'Media Type',
+         type: 'string',
+         initialValue: 'image',
+         description: 'The type of media for the pin',
+         options: {
+            list: ['image', 'video'],
+         },
+      }),
+      defineField({
          name: 'image',
          title: 'Image',
          type: 'image',
          options: {
-         hotspot: true,
+            hotspot: true,
          },
+         description: 'The image for the pin',
+      }),
+      defineField({
+         name: 'altText',
+         title: 'Alt Text',
+         type: 'string',
+         description: 'The alt text for the image',
+      }),
+      defineField({
+         name: 'video',
+         title: 'Video',
+         type: 'file',
+         options: {
+            accept: 'video/*',
+         },
+         description: 'The video for the pin',
+      }),
+      defineField({
+         name: 'poster',
+         title: 'Poster',
+         type: 'image',
+         options: {
+            hotspot: true,
+         },
+         description: 'The poster image for the video',
+      }),
+      defineField({
+         name: 'allowDownload',
+         title: 'Allow Download',
+         type: 'boolean',
+         initialValue: true,
+         description: 'Whether the user wants to allow downloads of the image',
+      }),
+      defineField({
+         name: 'tags',
+         title: 'Tags',
+         type: 'array',
+         of: [{type: 'string'}],
+         options: { layout: 'tags' },
       }),
       defineField({
          name: 'userId',
