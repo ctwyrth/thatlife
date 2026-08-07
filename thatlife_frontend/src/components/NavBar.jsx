@@ -1,4 +1,4 @@
-// Top search bar; guests can search, signed-in users can create pins.
+// Top search bar + theme toggle (localStorage + optional Sanity user.theme patch).
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoMdAdd, IoMdSearch, IoMdMoon, IoMdSunny } from 'react-icons/io';

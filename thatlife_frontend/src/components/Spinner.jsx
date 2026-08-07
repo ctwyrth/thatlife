@@ -1,3 +1,4 @@
+// Loading spinner with optional message; dark: readable caption text.
 import React from 'react';
 import { Circles, MutatingDots } from 'react-loader-spinner';
 

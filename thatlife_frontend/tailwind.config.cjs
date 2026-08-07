@@ -1,7 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+// darkMode: 'class' enables dark: utilities when <html class="dark"> (see utils/theme.js).
+// Note: Tailwind 3.2 gray scale tops out at gray-900 (no gray-950).
 
 module.exports = {
    content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+   darkMode: 'class',
    theme: {
       extend: {
          margin: {
@@ -89,7 +92,6 @@ module.exports = {
          pointer: 'pointer',
       },
    },
-   darkMode: 'class',
    plugins: [],
 };
 

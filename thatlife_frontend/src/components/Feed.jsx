@@ -1,4 +1,4 @@
-// Masonry feed of Sanity pins by category or home query.
+// Masonry feed of Sanity pins by category or home query. Dark: empty-state text.
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 

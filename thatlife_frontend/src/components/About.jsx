@@ -1,4 +1,4 @@
-// Static About page linked from the Main sidebar section.
+// Static About page linked from the Main sidebar section (dark: text/button variants).
 import React from 'react';
 import { Link } from 'react-router-dom';
 

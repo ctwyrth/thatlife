@@ -1,3 +1,4 @@
+// Pin routes shell — light gray-50 / dark gray-800 canvas (cards stay gray-900 in dark).
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
@@ -7,8 +8,8 @@ const Pins = ({ user }) => {
    const [searchTerm, setSearchTerm] = useState('');
 
    return (
-      <div className="px-2 md:px-5">
-         <div className="bg-gray-25">
+      <div className="px-2 md:px-5 min-h-full bg-gray-50 dark:bg-gray-800">
+         <div>
             <NavBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} user={user} />
          </div>
          <div className="h-full">

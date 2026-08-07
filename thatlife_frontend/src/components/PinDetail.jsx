@@ -1,4 +1,4 @@
-// Pin detail view with comments; guests can view, sign-in required to post.
+// Pin detail + related pins; dark: card surfaces; empty related list shows CTA (no endless spinner).
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -136,13 +136,34 @@ const PinDetail = ({ user }) => {
          </div>
 
          {/* related pins */}
-         {pins?.length > 0 ? (
+         {pins === null ? (
+            <Spinner message="Loading more pins..." />
+         ) : pins.length > 0 ? (
             <>
                <h2 className="text-center font-bold text-2xl mt-8 mb-4 text-gray-900 dark:text-gray-100">More like this:</h2>
                <MasonryLayout pins={pins} />
             </>
          ) : (
-            <Spinner message="Loading more pins..." />
+            <div className="text-center mt-8 mb-6 px-4">
+               <p className="text-lg text-gray-700 dark:text-gray-300 mb-3">
+                  No other pins in this category yet.
+               </p>
+               {user ? (
+                  <Link
+                     to="/create-pin"
+                     className="inline-block bg-black dark:bg-white text-white dark:text-black rounded-lg px-5 py-2 font-semibold"
+                  >
+                     Add a pin to this category
+                  </Link>
+               ) : (
+                  <Link
+                     to="/login"
+                     className="inline-block bg-black dark:bg-white text-white dark:text-black rounded-lg px-5 py-2 font-semibold"
+                  >
+                     Sign in to add a pin
+                  </Link>
+               )}
+            </div>
          )}
       </>
    )

@@ -1,3 +1,4 @@
+// Public user profile (Created/Saved); dark: page/button surfaces.
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 

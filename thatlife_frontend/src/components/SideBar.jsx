@@ -1,10 +1,13 @@
-// Sectioned sidebar: Main / Discover / Account; desktop icons-only collapse.
+// Sectioned sidebar with light/dark logos (full wordmark or camera mark when collapsed).
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
 import { MdInfoOutline, MdMenuOpen, MdMenu } from 'react-icons/md';
 
 import logo from '../assets/logo.png';
+import logoWhite from '../assets/logo-white.png';
+import logoMark from '../assets/logo-mark.png';
+import logoMarkWhite from '../assets/logo-mark-white.png';
 import { categories } from '../utils/data';
 
 const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all duration-200 ease-in-out capitalize';
@@ -38,11 +41,17 @@ const SideBar = ({ user, closeToggle, collapsed = false, onToggleCollapse }) => 
                   onClick={handleCloseSidebar}
                   title="Home"
                >
-                  <img
-                     src={logo}
-                     alt="thatlife logo"
-                     className={`dark:invert ${collapsed ? 'w-8 h-8 object-contain' : 'w-full'}`}
-                  />
+                  {collapsed ? (
+                     <>
+                        <img src={logoMark} alt="thatlife" className="w-8 h-8 object-contain dark:hidden" />
+                        <img src={logoMarkWhite} alt="thatlife" className="w-8 h-8 object-contain hidden dark:block" />
+                     </>
+                  ) : (
+                     <>
+                        <img src={logo} alt="thatlife logo" className="w-full dark:hidden" />
+                        <img src={logoWhite} alt="thatlife logo" className="w-full hidden dark:block" />
+                     </>
+                  )}
                </Link>
                {onToggleCollapse && (
                   <button
@@ -59,7 +68,7 @@ const SideBar = ({ user, closeToggle, collapsed = false, onToggleCollapse }) => 
                )}
             </div>
 
-            <div className={`flex flex-col ${collapsed ? 'gap-1' : 'gap-1'}`}>
+            <div className="flex flex-col gap-1">
                {!collapsed && <h3 className={sectionLabel}>Main</h3>}
                <NavLink to="/" end className={linkClass} onClick={handleCloseSidebar} title="Home">
                   <RiHomeFill className="w-5 h-5 shrink-0" />

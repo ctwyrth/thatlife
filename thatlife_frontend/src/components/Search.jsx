@@ -1,3 +1,4 @@
+// Search results masonry; dark: empty-state text.
 import React, { useState, useEffect } from 'react';
 
 import MasonryLayout from './MasonryLayout';

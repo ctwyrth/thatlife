@@ -1,4 +1,4 @@
-// Create pin form; redirects guests to Google login.
+// Create pin form; redirects guests to Google login. Includes dark: form surfaces.
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineCloudUpload } from 'react-icons/ai';

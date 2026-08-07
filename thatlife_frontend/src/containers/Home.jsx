@@ -1,4 +1,4 @@
-// Home shell: collapsible desktop sidebar + pin routes; guests and signed-in users.
+// Home shell: collapsible sidebar + routes; applies Sanity user.theme for dark mode.
 import React, { useState, useRef, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
@@ -7,6 +7,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { Sidebar, UserProfile, About } from '../components';
 import { client } from '../client';
 import logo from '../assets/logo.png';
+import logoWhite from '../assets/logo-white.png';
 import Pins from './Pins';
 import { userQuery } from '../utils/data';
 import { fetchUser } from '../utils/fetchUser';
@@ -59,7 +60,7 @@ const Home = () => {
    };
 
    return (
-      <div className="flex bg-gray-50 dark:bg-gray-950 md:flex-row flex-col h-screen transaction-height duration-75 ease-out text-gray-900 dark:text-gray-100">
+      <div className="flex bg-gray-50 dark:bg-gray-800 md:flex-row flex-col h-screen transaction-height duration-75 ease-out text-gray-900 dark:text-gray-100">
          <div className="hidden md:flex h-screen flex-initial">
             <Sidebar
                user={user && user}
@@ -71,7 +72,8 @@ const Home = () => {
             <div className="p-2 w-full flex flex-row justify-between items-center shadow-md bg-white dark:bg-gray-900">
                <HiMenu fontSize={40} className="cursor-pointer text-gray-900 dark:text-gray-100" onClick={() => setToggleSidebar(true)} />
                <Link to="/">
-                  <img src={logo} alt="logo" className="w-36 dark:invert" />
+                  <img src={logo} alt="logo" className="w-36 dark:hidden" />
+                  <img src={logoWhite} alt="logo" className="w-36 hidden dark:block" />
                </Link>
                <Link to={`user-profile/${user?._id}`}>
                   <img src={user?.image} alt="user avatar" className="w-12 h-12 rounded-lg" referrerPolicy="no-referrer" />
@@ -86,7 +88,7 @@ const Home = () => {
                </div>
             )}
          </div>
-         <div className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
+         <div className="pb-2 flex-1 h-screen overflow-y-scroll bg-gray-50 dark:bg-gray-800" ref={scrollRef}>
             <Routes>
                <Route path="/user-profile/:userId" element={<UserProfile />} />
                <Route path="/about" element={<About />} />

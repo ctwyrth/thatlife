@@ -1,4 +1,4 @@
-// Masonry pin card with save/delete; guests are sent to login for writes.
+// Masonry pin card with save/delete; guests are sent to login for writes. Dark: overlay chips.
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
