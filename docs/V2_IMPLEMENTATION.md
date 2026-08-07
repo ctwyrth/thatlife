@@ -3,7 +3,7 @@
 Build order after the UI modernization assessment and [`UI_TWEAKS.md`](UI_TWEAKS.md) (#1–#13).  
 Ship still-image / nav / profile / cards / modal in **2.0.0**. Video = **schema hooks only** now; full video feature = **2.1.0**.
 
-**Product version:** both packages are at **2.0.1** (Phase 0 foundation + category icons). Tag **2.1.0** when video upload/playback ships; use further **2.0.x** patches as remaining UI path items land if preferred.
+**Product version:** both packages are at **2.0.2** (Phase 0 + dark mode + collapsible sidebar). Tag **2.1.0** when video upload/playback ships; use further **2.0.x** patches as remaining UI path items land if preferred.
 
 Hand-coding entry point: [`PHASE0_SCHEMA_HANDOFF.md`](PHASE0_SCHEMA_HANDOFF.md) (**done**).
 
@@ -28,9 +28,9 @@ Update GROQ in [`thatlife_frontend/src/utils/data.js`](../thatlife_frontend/src/
 
 | Order | Item | Notes |
 | --- | --- | --- |
-| 1 | **#3** Dark mode | Tailwind `darkMode: 'class'`; persist `localStorage` (+ user `theme` when logged in) |
+| 1 | **#3** Dark mode | **done** — [`PHASE1_DARK_MODE_HANDOFF.md`](PHASE1_DARK_MODE_HANDOFF.md) |
 | 2 | **#4** Categories + icons | **done** — Movies/Books/Celebrities + `react-icons` in sidebar |
-| 3 | **#5** Collapsible sidebar | Main (Home, About + TBD) / Discover / Account sections |
+| 3 | **#5** Collapsible sidebar | **done** — Main / Discover / Account; icons-only collapse; `/about` |
 | 4 | **#6** User menus | Shared menu: User’s Page / Profile / Sign off in sidebar + navbar |
 
 Add routes/pages as needed: `/about`, `/profile` (or `/settings`).

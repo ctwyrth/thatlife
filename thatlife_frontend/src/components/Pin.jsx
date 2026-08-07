@@ -57,7 +57,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save} }) => {
                <div className="absolute top-0 w-full h-full flex flex-col justify-between p-2 z-50" style={{ height: "100%" }}>
                   <div className="flex items-center justify-between">
                      <div className="flex gap-2">
-                        <a href={`${image?.asset?.url}?dl=`} download onClick={(e) => e.stopPropagation()} className="bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none">
+                        <a href={`${image?.asset?.url}?dl=`} download onClick={(e) => e.stopPropagation()} className="bg-white dark:bg-gray-800 w-9 h-9 rounded-full flex items-center justify-center text-gray-900 dark:text-gray-100 text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none">
                            <MdDownloadForOffline className="w-7 h-7" />
                         </a>
                      </div>
@@ -72,12 +72,12 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save} }) => {
                   </div>
                   <div className="flex justify-between items-center gap-2 w-full">
                      {destination && (
-                        <a href={destination} target="_blank" rel="noreferrer" className="bg-white flex items-center gap-2 text-black font-bold px-2 py-1 rounded-full opacity-70 hover:opacity-100 hover:shadow-md">
+                        <a href={destination} target="_blank" rel="noreferrer" className="bg-white dark:bg-gray-800 flex items-center gap-2 text-black dark:text-gray-100 font-bold px-2 py-1 rounded-full opacity-70 hover:opacity-100 hover:shadow-md">
                            <BsFillArrowUpRightCircleFill /><span style={{fontSize: '.75rem'}}>{destination.length > 15 ? `${destination.slice(0,15)}...` : destination}</span>
                         </a>
                      )}
                      {user && postedBy?._id === user.sub && (
-                        <button type="button" className="bg-white flex items-center opacity-75 hover:opacity-100 text-dark font-4bold p-2 text-base rounded-3xl hover:shadow-md outline-none" onClick={(e) => {
+                        <button type="button" className="bg-white dark:bg-gray-800 flex items-center opacity-75 hover:opacity-100 text-gray-900 dark:text-gray-100 font-4bold p-2 text-base rounded-3xl hover:shadow-md outline-none" onClick={(e) => {
                            e.stopPropagation();
                            deletePin(_id);
                         }}><AiTwotoneDelete /></button>
@@ -88,7 +88,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save} }) => {
          </div>
          <Link to={`/user-profile/${postedBy?._id}`} className="flex gap-2 mt-2 items-center">
             <img src={postedBy?.image} alt="user avatar" className="w-8 h-8 rounded-full object-cover" referrerPolicy="no-referrer"/>
-            <p className="font-semibold capitalize">{postedBy?.userName}</p>
+            <p className="font-semibold capitalize text-gray-900 dark:text-gray-100">{postedBy?.userName}</p>
          </Link>
          {/* at 2:58:31 */}
       </div>

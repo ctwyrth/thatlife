@@ -8,7 +8,9 @@ module.exports = {
             320: '320px',
          },
          width: {
+            16: '4rem',
             190: '190px',
+            210: '210px',
             275: '275px',
             300: '300px',
             340: '340px',
@@ -16,6 +18,12 @@ module.exports = {
             656: '656px',
             880: '880px',
             508: '508px',
+         },
+         minWidth: {
+            16: '4rem',
+            210: '210px',
+            350: '350px',
+            620: '620px',
          },
          height: {
             80: '80px',
@@ -33,11 +41,6 @@ module.exports = {
          },
          maxHeight: {
             370: '370px',
-         },
-         minWidth: {
-            210: '210px',
-            350: '350px',
-            620: '620px',
          },
          textColor: {
             lightGray: '#F1EFEE',
@@ -86,6 +89,7 @@ module.exports = {
          pointer: 'pointer',
       },
    },
+   darkMode: 'class',
    plugins: [],
 };
 

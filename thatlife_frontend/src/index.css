@@ -6,6 +6,12 @@ body {
    font-family: 'Lato', sans-serif;
 }
 
+/* Dark mode page chrome when html has class="dark" */
+html.dark body {
+   background-color: #030712; /* gray-950 */
+   color: #f3f4f6; /* gray-100 */
+}
+
 .hidescrollbar::-webkit-scrollbar {
    display: none;
 }

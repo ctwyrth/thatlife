@@ -74,11 +74,13 @@ Hand-coding guide for Phase 0: [`docs/PHASE0_SCHEMA_HANDOFF.md`](PHASE0_SCHEMA_H
 
 ---
 
-## 3. Dark mode selection + implementation — `todo`
+## 3. Dark mode selection + implementation — `done`
 
 **Problem:** UI is light-only (`bg-white` / `bg-gray-50` / black accents). No theme preference.
 
 **Goal:** User can select **dark mode** (and switch back to light); theme applies app-wide and persists across sessions.
+
+**Handoff:** [`PHASE1_DARK_MODE_HANDOFF.md`](PHASE1_DARK_MODE_HANDOFF.md)
 
 **Likely implementation notes:**
 
@@ -89,9 +91,9 @@ Hand-coding guide for Phase 0: [`docs/PHASE0_SCHEMA_HANDOFF.md`](PHASE0_SCHEMA_H
 
 **Acceptance:**
 
-- [ ] User can choose dark vs light
-- [ ] Preference persists after reload
-- [ ] Core screens remain readable (contrast, borders, overlays) in both themes
+- [x] User can choose dark vs light
+- [x] Preference persists after reload
+- [x] Core screens remain readable (contrast, borders, overlays) in both themes
 
 ---
 
@@ -119,7 +121,7 @@ Hand-coding guide for Phase 0: [`docs/PHASE0_SCHEMA_HANDOFF.md`](PHASE0_SCHEMA_H
 
 ---
 
-## 5. Collapsible, better-sectioned left sidebar — `todo`
+## 5. Collapsible, better-sectioned left sidebar — `done`
 
 **Problem:** Sidebar is a flat stack: logo → single **Home** link → long category list → user chip. Home feels under-expanded; no clear sections; sidebar isn’t collapsible on desktop.
 
@@ -135,18 +137,20 @@ Hand-coding guide for Phase 0: [`docs/PHASE0_SCHEMA_HANDOFF.md`](PHASE0_SCHEMA_H
 **Current code touchpoints:**
 
 - [`SideBar.jsx`](../thatlife_frontend/src/components/SideBar.jsx), [`Home.jsx`](../thatlife_frontend/src/containers/Home.jsx) (desktop column + mobile toggle)
+- [`About.jsx`](../thatlife_frontend/src/components/About.jsx) — `/about` route
 
-**Open decisions (fill in while building):**
+**Decisions:**
 
-- Additional Main links beyond About (e.g. Help, Privacy, Changelog?)
-- Collapsed = icons-only rail vs fully hidden
+- Collapsed = **icons-only rail** (not fully hidden); preference in `localStorage` (`thatlife-sidebar-collapsed`)
+- Main links for now: Home + About (more TBD)
+- Account section still links to profile / Sign in until #6 shared menu
 
 **Acceptance:**
 
-- [ ] User can collapse/expand the sidebar on desktop
-- [ ] Nav is visually sectioned (Main / Discover / Account or equivalent)
-- [ ] About page/route exists and is linked from Main
-- [ ] Mobile sidebar behavior remains usable
+- [x] User can collapse/expand the sidebar on desktop
+- [x] Nav is visually sectioned (Main / Discover / Account or equivalent)
+- [x] About page/route exists and is linked from Main
+- [x] Mobile sidebar behavior remains usable
 
 ---
 

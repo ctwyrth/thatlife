@@ -12,7 +12,7 @@ import { client } from '../client';
 
 const randomImage = 'https://source.unsplash.com/random/1600x900/?nature,photography,technology';
 const activeBtnStyles = 'bg-red-500 text-white font-bold p-2 rounded-full w-20 outline-none';
-const notActiveBtnStyles = 'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
+const notActiveBtnStyles = 'bg-primary dark:bg-gray-700 mr-4 text-black dark:text-gray-100 font-bold p-2 rounded-full w-20 outline-none';
 
 const UserProfile = () => {
    const [user, setUser] = useState(null);
@@ -62,7 +62,7 @@ const UserProfile = () => {
    }
 
    return (
-      <div className="relative pb-2 h-full justify-center items-center">
+      <div className="relative pb-2 h-full justify-center items-center text-gray-900 dark:text-gray-100">
          <div className="flex flex-col pb-5">
             <div className="relative flex flex-col mb-7">
                <div className="flex flex-col justify-center items-center">
@@ -71,7 +71,7 @@ const UserProfile = () => {
                   <h1 className="font-bold text-3xl text-center mt-3">{user.userName}</h1>
                   <div className="absolute top-0 z-1 right-0 p-2">
                      {userId == user._id && (
-                        <button type="button" className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md" onClick={logout}>
+                        <button type="button" className="bg-white dark:bg-gray-800 p-2 rounded-full cursor-pointer outline-none shadow-md" onClick={logout}>
                            <AiOutlineLogout color="red" fontSize={21} />
                         </button>
                      )}
@@ -92,7 +92,7 @@ const UserProfile = () => {
                      <MasonryLayout pins={pins} />
                   </div>
                ) : (
-                  <div className="flex justify-center font-bold items-center w-full text-xl mt-2">
+                  <div className="flex justify-center font-bold items-center w-full text-xl mt-2 text-gray-700 dark:text-gray-300">
                      No pins found!
                   </div>
                )}

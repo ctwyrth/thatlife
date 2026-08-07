@@ -10,9 +10,9 @@ import {
    MdOutlineMoreHoriz,
    MdOutlineSportsEsports,
    MdOutlineAutoAwesome,
+   MdOutlineMenuBook,
 } from 'react-icons/md';
 import { FaBook, FaPaw, FaDog, FaMask } from 'react-icons/fa';
-import { GiComicMask } from 'react-icons/gi';
 import { BiCameraMovie } from 'react-icons/bi';
 
 export const userQuery = (userId) => {
@@ -100,7 +100,7 @@ export const feedQuery = `*[_type == 'pin'] | order(_createdAt desc) {
 
 // Discover categories — keep Others last (sidebar hides it; Create Pin includes it).
 export const categories = [
-   { name: 'Comics', icon: GiComicMask },
+   { name: 'Comics', icon: MdOutlineMenuBook },
    { name: 'Cosplay', icon: FaMask },
    { name: 'Gaming', icon: MdOutlineSportsEsports },
    { name: 'Movies', icon: BiCameraMovie },

@@ -33,7 +33,7 @@ const Feed = () => {
 
    if (loading) return <Spinner message="We're working to bring you new content." />;
 
-   if (!pins?.length) return <h2>No pins available.</h2>
+   if (!pins?.length) return <h2 className="text-gray-900 dark:text-gray-100">No pins available.</h2>
 
    return (
       <div>

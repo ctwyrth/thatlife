@@ -72,7 +72,7 @@ const PinDetail = ({ user }) => {
    return (
       // pinned image and posting information
       <>
-         <div className="flex xl-flex-row flex-col m-auto bg-white" style={{ maxWidth: '1500px', borderRadius: '32px' }}>
+         <div className="flex xl-flex-row flex-col m-auto bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100" style={{ maxWidth: '1500px', borderRadius: '32px' }}>
             <div className="flex justify-center items-center md:item-start flex-initial">
                <img src={pinDetails?.image && urlFor(pinDetails.image).url()} alt="user-post" className="rounded-t-3xl" />
             </div>
@@ -80,39 +80,39 @@ const PinDetail = ({ user }) => {
          {/* image */}
                <div className="flex items-center justify-between">
                   <div className="flex gap-2 items-center">
-                     <a href={`${pinDetails.image?.asset?.url}?dl=`} download onClick={(e) => e.stopPropagation()} className="bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none">
+                     <a href={`${pinDetails.image?.asset?.url}?dl=`} download onClick={(e) => e.stopPropagation()} className="bg-white dark:bg-gray-800 w-9 h-9 rounded-full flex items-center justify-center text-gray-900 dark:text-gray-100 text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none">
                         <MdDownloadForOffline className="w-7 h-7" />
                      </a>
                   </div>
-                  <a href={pinDetails.destination} target="_blank" rel="noreferrer">{pinDetails.destination}</a>
+                  <a href={pinDetails.destination} target="_blank" rel="noreferrer" className="text-blue-600 dark:text-blue-400 break-all">{pinDetails.destination}</a>
                </div>
                <div>
                   <h1 className="text-4xl font-bold break-words mt-3">{pinDetails.title}</h1>
-                  <p className="mt-2 ml-2">{pinDetails.about}</p>
+                  <p className="mt-2 ml-2 text-gray-700 dark:text-gray-300">{pinDetails.about}</p>
                </div>
          {/* posted by */}
-               <Link to={`/user-profile/${pinDetails.postedBy?._id}`} className="flex gap-2 my-6 items-center bg-white rounded-lg">
+               <Link to={`/user-profile/${pinDetails.postedBy?._id}`} className="flex gap-2 my-6 items-center bg-white dark:bg-gray-800 rounded-lg">
                   <img src={pinDetails.postedBy?.image} alt="user avatar" className="w-8 h-8 rounded-full object-cover" referrerPolicy="no-referrer"/>
                   <p className="font-semibold capitalize">{pinDetails.postedBy?.userName}</p>
                </Link>
 
-               <hr style={{ width: '95%', margin: '0 auto' }} />
+               <hr className="border-gray-200 dark:border-gray-700" style={{ width: '95%', margin: '0 auto' }} />
 
          {/* comments on pin */}
                <h2 className="mt-5 text-2xl pl-6">Comments:</h2>
                <div className="max-h-370 overflow-y-auto pl-8 mb-7">
                   {pinDetails?.comments?.map((comment, i) => (
-                     <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={i}>
+                     <div className="flex gap-2 mt-5 items-center bg-white dark:bg-gray-800 rounded-lg" key={i}>
                         <img src={comment.postedBy.image} alt="user-profile" className="w-10 h-10 rounded-full" />
                         <div className="flex flex-col">
                            <p className="font-bold">{comment.postedBy.userName}</p>
-                           <p>{comment.comment}</p>
+                           <p className="text-gray-700 dark:text-gray-300">{comment.comment}</p>
                         </div>
                      </div>
                   ))}
                </div>
 
-               <hr style={{ width: '95%', margin: '0 auto' }} />
+               <hr className="border-gray-200 dark:border-gray-700" style={{ width: '95%', margin: '0 auto' }} />
 
          {/* add a comment from current user, or prompt guests to sign in */}
                {user ? (
@@ -120,14 +120,14 @@ const PinDetail = ({ user }) => {
                      <Link to={`/user-profile/${user?._id}`}>
                         <img src={user?.image} alt="user avatar" className="w-10 h-10 rounded-full cursor-pointer" referrerPolicy="no-referrer"/>
                      </Link>
-                     <input type="text" className="flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300" placeholder="Add a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />
+                     <input type="text" className="flex-1 border-gray-100 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300 dark:focus:border-gray-500" placeholder="Add a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />
                      <button type="button" className="bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none" onClick={addComment}>
                         {addingComment ? 'Posting...' : 'Post'}
                      </button>
                   </div>
                ) : (
                   <div className="flex items-center mt-6 gap-3">
-                     <Link to="/login" className="bg-black text-white rounded-full px-6 py-2 font-semibold text-base outline-none">
+                     <Link to="/login" className="bg-black dark:bg-white text-white dark:text-black rounded-full px-6 py-2 font-semibold text-base outline-none">
                         Sign in to comment
                      </Link>
                   </div>
@@ -138,7 +138,7 @@ const PinDetail = ({ user }) => {
          {/* related pins */}
          {pins?.length > 0 ? (
             <>
-               <h2 className="text-center font-bold text-2xl mt-8 mb-4">More like this:</h2>
+               <h2 className="text-center font-bold text-2xl mt-8 mb-4 text-gray-900 dark:text-gray-100">More like this:</h2>
                <MasonryLayout pins={pins} />
             </>
          ) : (
